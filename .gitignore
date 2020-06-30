@@ -1,0 +1,17 @@
+.metadata/
+.recommenders/
+RemoteSystemsTempFiles/
+sample-project-gradle/
+Servers/
+my-blockchain/
+eth-client-web3j/
+.classpath
+.project
+.settings/
+target/
+*/.classpath
+*/.project
+*/.settings/
+*/target/
+.DS_Store
+*/.DS_Store
