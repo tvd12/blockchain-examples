@@ -1,4 +1,4 @@
-package com.tvd12.blockchain.example2;
+package com.tvd12.my.blockchain;
 
 import lombok.Getter;
 

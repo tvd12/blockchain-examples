@@ -1,7 +1,7 @@
-package com.tvd12.blockchain.testing;
+package com.tvd12.my.blockchain.testing;
 
-import com.tvd12.blockchain.example2.Blockchain;
-import com.tvd12.blockchain.example2.Transaction;
+import com.tvd12.my.blockchain.Blockchain;
+import com.tvd12.my.blockchain.Transaction;
 
 public class Test002 {
 

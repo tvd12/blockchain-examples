@@ -1,6 +1,8 @@
-package com.tvd12.blockchain.example1;
+package com.tvd12.my.blockchain;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import com.tvd12.blockchain.security.SHA256HashBuilder;
 import com.tvd12.ezyfox.io.EzyPrints;
@@ -15,18 +17,18 @@ public class Block {
 	private long index;
 	private Date timestamp;
 	private String previousHash;
-	private String data;
+	private Queue<Transaction> transactions;
 	private int nonce;
 	private String hash;
 	
 	public Block(
 			long index, 
 			Date timestamp, 
-			String previousHash, String data) {
+			String previousHash, Queue<Transaction> transactions) {
 		this.index = index;
 		this.timestamp = timestamp;
 		this.previousHash = previousHash;
-		this.data = data;
+		this.transactions = new LinkedList<>(transactions);
 		this.hash = hash();
 	}
 	
@@ -36,7 +38,7 @@ public class Block {
 				.append(timestamp)
 				.append(previousHash)
 				.append(nonce)
-				.append(data)
+				.append(transactions)
 				.build();
 	}
 	
