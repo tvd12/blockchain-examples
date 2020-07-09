@@ -1,3 +1,7 @@
+bips/
+bitcoin/
+bitcoinc/
+bitcoinj/
 .metadata/
 .recommenders/
 RemoteSystemsTempFiles/

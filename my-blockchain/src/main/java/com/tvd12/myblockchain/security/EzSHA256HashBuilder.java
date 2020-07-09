@@ -1,8 +1,8 @@
-package com.tvd12.blockchain.security;
+package com.tvd12.myblockchain.security;
 
 import com.tvd12.ezyfox.sercurity.EzySHA256;
 
-public class SHA256HashBuilder extends HashBuilder {
+public class EzSHA256HashBuilder extends EzHashBuilder {
 
 	@Override
 	protected String hash(String chain) {
