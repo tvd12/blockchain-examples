@@ -2,10 +2,13 @@ package com.tvd12.my.blockchain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+
+import com.tvd12.my.blockchain.store.EzFileStore;
 
 import lombok.Getter;
 
-public class EzBlockchain {
+public final class EzBlockchain {
 
 	@Getter
 	private int degree;
@@ -14,6 +17,7 @@ public class EzBlockchain {
 	@Getter
 	private final int maxFreeBlocks;
 	private final List<EzBlock> blocks;
+	private final Store store;
 	private final static EzBlockchain INSTANCE = new EzBlockchain(); 
 	
 	private EzBlockchain() {
@@ -21,6 +25,7 @@ public class EzBlockchain {
 		this.maxFreeBlocks = 100;
 		this.rewardForMiner = 100;
 		this.blocks = new ArrayList<>();
+		this.store = new Store();
 		this.load();
 	}
 	
@@ -31,6 +36,7 @@ public class EzBlockchain {
 	public void addBlock(EzBlock block) {
 		synchronized (blocks) {
 			blocks.add(block);
+			store.append(block);
 		}
 	}
 	
@@ -75,9 +81,26 @@ public class EzBlockchain {
 	}
 	
 	private void load() {
+		store.forEach(block -> {
+			blocks.add(block);
+		});
 		if(blocks.isEmpty()) {
-			this.blocks.add(new EzGenesisBlock());
+			EzBlock genesisBlock = new EzGenesisBlock();
+			genesisBlock.mine();
+			addBlock(genesisBlock);
 		}
+	}
+	
+	public static class Store {
+
+		public void append(EzBlock block) {
+			EzFileStore.getInstance().append("data/blockchain.txt", block);
+		}
+		
+		public void forEach(Consumer<EzBlock> consumer) {
+			EzFileStore.getInstance().forEach("data/blockchain.txt", EzBlock.class, consumer);
+		}
+		
 	}
 	
 }

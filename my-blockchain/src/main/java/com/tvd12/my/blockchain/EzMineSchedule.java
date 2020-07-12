@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.tvd12.ezyfox.util.EzyLoggable;
 
-public class EzMineSchedule extends EzyLoggable {
+public final class EzMineSchedule extends EzyLoggable {
 
 	private final ScheduledExecutorService executorService;
 	private final static EzMineSchedule INSTANCE = new EzMineSchedule();
@@ -29,8 +29,7 @@ public class EzMineSchedule extends EzyLoggable {
 			doMine();
 		}
 		catch (Exception e) {
-			System.out.println("mine error!");
-			e.printStackTrace();
+			logger.error("mine error", e);
 		}
 	}
 	
@@ -41,7 +40,7 @@ public class EzMineSchedule extends EzyLoggable {
 		int chainSize = blockchain.size();
 		int maxFreeBlocks = blockchain.getMaxFreeBlocks();
 		if(transactions.isEmpty() && chainSize >= maxFreeBlocks) {
-			System.out.println("transaction list is empty, do nothing");
+			logger.info("transaction list is empty, do nothing");
 			return;
 		}
 		EzBlock lastBlock = blockchain.getLastBlock();
@@ -49,9 +48,10 @@ public class EzMineSchedule extends EzyLoggable {
 				chainSize, 
 				lastBlock.getHash(), 
 				transactions, 
+				blockchain.getDegree(),
 				System.currentTimeMillis()
 		);
-		newBlock.mine(blockchain.getDegree());
+		newBlock.mine();
 		blockchain.addBlock(newBlock);
 	}
 	

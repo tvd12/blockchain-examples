@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class EzTransactionPool {
+public final class EzTransactionPool {
 
 	private final Queue<EzTransaction> verifiedTransactions;
 	private final static EzTransactionPool INSTANCE = new EzTransactionPool();

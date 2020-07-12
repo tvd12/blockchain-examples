@@ -5,7 +5,7 @@ import java.util.Collections;
 public class EzGenesisBlock extends EzBlock {
 
 	public EzGenesisBlock() {
-		super(0, true, "", Collections.emptyList(), System.currentTimeMillis());
+		super(0, true, "", Collections.emptyList(), 0, System.currentTimeMillis());
 	}
 	
 }
