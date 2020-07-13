@@ -1,37 +1,90 @@
 package com.tvd12.my.blockchain;
 
-import java.util.Map;
+import com.tvd12.myblockchain.security.EzSHA256HashBuilder;
+import com.tvd12.myblockchain.security.EzSigner;
 
 import lombok.Getter;
 
 @Getter
 public class EzTransaction {
 
-	private String id;
+	private final String id;
+	private final String from;
+	private final String to;
+	private final long value;
+	private final String input;
+	private final long timestamp;
+	private final String publicKey;
 	private String hash;
-	private String from;
-	private String to;
-	private long value;
-	private String input;
-	private long timestamp;
 	private String sign;
-	private String publicKey;
 	private Status status;
 	
-	public EzTransaction(Map<String, Object> map) {
-		this.id = (String) map.get("id");
-		this.hash = (String) map.get("hash");
-		this.from = (String) map.get("from");
-		this.value = ((Number) map.get("to")).longValue();
-		this.input = (String) map.get("input");
-		this.timestamp = ((Number) map.get("timestamp")).longValue();
-		this.sign = (String) map.get("sign");
-		this.publicKey = (String) map.get("publicKey");
-		this.status = Status.valueOf((String) map.get("status"));
+	public EzTransaction(
+			String id,
+			String from,
+			String to,
+			long value,
+			String input,
+			String publicKey) {
+		this(
+				id, 
+				"", 
+				from, 
+				to, 
+				value, 
+				input, 
+				System.currentTimeMillis(), 
+				"", 
+				publicKey, 
+				Status.VERIFIED
+		);
+		this.hash = hash();
+	}
+	
+	public EzTransaction(
+			String id,
+			String hash,
+			String from,
+			String to,
+			long value,
+			String input,
+			long timestamp,
+			String sign,
+			String publicKey,
+			Status status) {
+		this.id = id;
+		this.hash = hash;
+		this.from = from;
+		this.to = to;
+		this.value = value;
+		this.input = input;
+		this.timestamp = timestamp;
+		this.sign = sign;
+		this.publicKey = publicKey;
+		this.status = status;
 	}
 	
 	public void verify() {
 		// TODO: 
+	}
+	
+	public String sign(byte[] privateKey) throws Exception {
+		EzSigner signer = EzSigner.getInstance();
+		return signer.sign(privateKey, hash);
+	}
+	
+	public String hash() {
+		return new EzSHA256HashBuilder()
+				.append(id)
+				.append(hash)
+				.append(from)
+				.append(to)
+				.append(value)
+				.append(input)
+				.append(timestamp)
+				.append(sign)
+				.append(publicKey)
+				.build();
 	}
 	
 	public static enum Status {
