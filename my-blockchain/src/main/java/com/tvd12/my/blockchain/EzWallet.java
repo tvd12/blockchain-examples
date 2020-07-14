@@ -31,7 +31,7 @@ public final class EzWallet {
 		}
 	}
 	
-	public void transer(String from, String password, String to, long amount) {
+	public EzTransaction transfer(String from, String password, String to, long amount) {
 		try {
 			EzKeyPair keyPair = accountManager.getKeyPair(from, password);
 			String transactionId = UUID.randomUUID().toString();
@@ -44,6 +44,7 @@ public final class EzWallet {
 					keyPair.base64PublicKey());
 			transaction.sign(keyPair.getPrivateKey());
 			EzTransactionPool.getInstance().add(transaction);
+			return transaction;
 		}
 		catch (Exception e) {
 			throw new IllegalArgumentException("transfer error", e);

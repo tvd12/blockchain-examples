@@ -4,8 +4,10 @@ import com.tvd12.myblockchain.security.EzSHA256HashBuilder;
 import com.tvd12.myblockchain.security.EzSigner;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class EzTransaction {
 
 	private final String id;
@@ -70,7 +72,8 @@ public class EzTransaction {
 	
 	public String sign(byte[] privateKey) throws Exception {
 		EzSigner signer = EzSigner.getInstance();
-		return signer.sign(privateKey, hash);
+		this.sign = signer.sign(privateKey, hash);
+		return sign;
 	}
 	
 	public String hash() {
