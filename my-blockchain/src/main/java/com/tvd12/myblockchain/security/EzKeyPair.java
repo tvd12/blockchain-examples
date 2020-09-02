@@ -16,4 +16,8 @@ public class EzKeyPair {
 		return EzyBase64.encode2utf(publicKey);
 	}
 	
+	public final String base64PrivateKey() {
+		return EzyBase64.encode2utf(privateKey);
+	}
+	
 }

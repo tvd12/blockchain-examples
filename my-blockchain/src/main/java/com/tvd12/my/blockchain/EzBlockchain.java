@@ -85,10 +85,15 @@ public final class EzBlockchain {
 			blocks.add(block);
 		});
 		if(blocks.isEmpty()) {
-			EzBlock genesisBlock = new EzGenesisBlock();
-			genesisBlock.mine();
+			EzBlock genesisBlock = createGenesisBlock();
 			addBlock(genesisBlock);
 		}
+	}
+	
+	private EzBlock createGenesisBlock() {
+		EzBlock genesisBlock = new EzGenesisBlock();
+		genesisBlock.mine();
+		return genesisBlock;
 	}
 	
 	public static class Store {
