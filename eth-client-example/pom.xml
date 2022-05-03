@@ -17,7 +17,7 @@
 	<properties>
 		<ezy.util.version>1.1.2</ezy.util.version>
 		<web3j.version>4.6.0</web3j.version>
-		<spring.boot.version>2.1.5.RELEASE</spring.boot.version>
+		<spring.boot.version>2.5.12</spring.boot.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
